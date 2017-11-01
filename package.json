@@ -1,0 +1,8 @@
+{
+  "name": "inDecision-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/bonecrushereb/IndecisionApp.git",
+  "author": "bonecrushereb <bonecrushereb@gmail.com>",
+  "license": "MIT"
+}
