@@ -1,9 +1,16 @@
 console.log("App is Running");
 
-var template = (
+const app = {
+  title: 'Indecision App',
+  subtitle: 'Put your life in the hands of a computer',
+  options: ['One', 'Two']
+}
+
+const template = (
   <div>
-    <h1>Ben</h1>
-    <p>This is some info</p>
+    <h1>{app.title}</h1>
+    {app.subtitle && <p>{app.subtitle}</p>}
+    <p>{app.options.length > 0 ? 'Here are your options' : 'No options'}</p>
     <ol>
       <li>Item 1</li>
       <li>Item 2</li>
@@ -11,20 +18,38 @@ var template = (
   </div>
 );
 
-var user = {
-  name:'Ben',
-  age: 28,
-  userLocation: 'Seattle'
-}
+let count = 0;
 
-var template2 = (
-  <div>
-    <h1>{user.name + '!'}</h1>
-    <p>Age: {user.age}</p>
-    <p>Location: {user.userLocation}</p>
-  </div>
-);
+const addOne = () => {
+  console.log('addOne');
+  count++;
+  renderCounterApp();
+};
+const minusOne = () => {
+  console.log('minusOne');
+  count--;
+  renderCounterApp();
+};
+const reset = () => {
+  console.log('reset');
+  count = 0;
+  renderCounterApp();
+};
 
-var appRoot = document.getElementById('app');
 
-ReactDOM.render(template2, appRoot);
+const appRoot = document.getElementById('app');
+
+const renderCounterApp = () => {
+  const templateTwo = (
+    <div>
+      <h1>Count: {count}</h1>
+      <button onClick={addOne}> +1</button>
+      <button onClick={minusOne}> -1</button>
+      <button onClick={reset}>reset count</button>
+    </div>
+  );
+
+  ReactDOM.render(templateTwo, appRoot);
+};
+
+renderCounterApp();
