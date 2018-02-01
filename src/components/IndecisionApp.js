@@ -3,25 +3,32 @@ import AddOption from './AddOption';
 import Action from './Action';
 import Options from './Options';
 import Header from './Header';
+import OptionModal from './OptionModal';
 
 export default class InDecisionApp extends React.Component {
   state = {
-    options: []
+    options: [],
+    selectedOption: undefined
   }
 
+  handleClearSelected = () => {
+    this.setState(() => ({ selectedOption: undefined }))
+  }
   handleDeleteOptions = (e) => {
     this.setState(() => ({options: []}));
-  }
+  };
   handleDeleteOption = (optionToRemove) => {
     this.setState((prevState) => ({
       options: prevState.options.filter((option) => optionToRemove !== option)
     }));
-  }
+  };
   handlePick = (e) => {
     const randomNum = Math.floor(Math.random() * this.state.options.length);
     const option = this.state.options[randomNum];
-    console.log(option);
-  }
+    this.setState(() => ({
+      selectedOption: option
+    }));
+  };
   handleAddOption = (option) => {
     if (!option) {
       return 'Enter valid value to add item';
@@ -39,14 +46,14 @@ export default class InDecisionApp extends React.Component {
         this.setState(() => ({options}));
       }
     } catch (e) {}
-  }
+  };
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.options.length != this.state.options.length) {
       const json = JSON.stringify(this.state.options);
       localStorage.setItem('options', json);
     }
-  }
+  };
   render() {
     const subtitle = 'Put your life in the hands of a computer';
 
@@ -56,6 +63,7 @@ export default class InDecisionApp extends React.Component {
         <Action hasOptions={this.state.options.length > 0} handlePick={this.handlePick}/>
         <Options options={this.state.options} handleDeleteOptions={this.handleDeleteOptions} handleDeleteOption={this.handleDeleteOption}/>
         <AddOption handleAddOption={this.handleAddOption}/>
+        <OptionModal selectedOption={this.state.selectedOption} handleClearSelected={this.handleClearSelected}/>
       </div>
     );
   }
