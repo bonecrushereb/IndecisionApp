@@ -8,7 +8,7 @@ const Options = (props) =>(
         <button className="button button--link" onClick={props.handleDeleteOptions}>remove all</button>
       </div>
       {props.options.length === 0 && <p className="widget__message">Please add an option to get started</p>}
-      {props.options.map((option) => (<Option key={option} optionText={option} handleDeleteOption={props.handleDeleteOption}/>))}
+      {props.options.map((option, index) => (<Option key={option} count={index + 1} optionText={option} handleDeleteOption={props.handleDeleteOption}/>))}
     </div>
   );
 
